@@ -60,17 +60,57 @@ namespace Whimsical_Editor
             if (!File.Exists(file))
                 return;
 
+            WorkingDirectory = Path.GetDirectoryName(file);
+            UserPreferences.Default.WorkingDirectory = WorkingDirectory;
+            UserPreferences.Default.Save();
+
             CurrentMod = JsonConvert.DeserializeObject<Mod>(File.ReadAllText(file));
 
             modNameTextBox.Text = CurrentMod.Name;
             modIDTextBox.Text = CurrentMod.ID;
             modAuthorTextBox.Text = CurrentMod.Author;
             modDescriptionTextBox.Text = CurrentMod.Description;
+
+            modProvinceFilesListBox.Items.AddRange(CurrentMod.ProvinceFiles.ToArray());
+            modRealmFilesListBox.Items.AddRange(CurrentMod.RealmFiles.ToArray());
+            modLocalizationFilesListBox.Items.AddRange(CurrentMod.LocalizationFiles.ToArray());
+
+            foreach (string f in CurrentMod.ProvinceFiles)
+                CurrentMod.Data.Provinces.AddRange(LoadJsonArrayFile<Province>(f, "provinces"));
         }
 
         private void CloseCurrentMod()
         {
 
+        }
+
+        private T LoadJsonObjectFile<T>(string file)
+        {
+            file = Path.Combine(WorkingDirectory, file);
+
+            if (!File.Exists(file))
+                return default(T);
+
+            return JsonConvert.DeserializeObject<T>(File.ReadAllText(file));
+        }
+
+        private List<T> LoadJsonArrayFile<T>(string file, string key)
+        {
+            file = Path.Combine(WorkingDirectory, file);
+
+            if (!File.Exists(file))
+                return new List<T>();
+
+            JObject json = JObject.Parse(File.ReadAllText(file));
+            JArray array = (JArray)json[key];
+
+            List<T> list = new List<T>();
+            foreach (var a in array)
+            {
+                list.Add(a.ToObject<T>());
+            }
+
+            return list;
         }
     }
 }

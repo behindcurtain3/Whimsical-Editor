@@ -30,11 +30,25 @@ namespace Whimsical_Editor.Data
         [JsonProperty("realms_to_add")]
         public List<string> RealmFiles { get; set; }
 
+        [JsonIgnore]
+        public GameData Data { get; set; }
+
         public Mod()
         {
             ProvinceFiles = new List<string>();
             LocalizationFiles = new List<string>();
             RealmFiles = new List<string>();
+            Data = new GameData();
+        }
+    }
+
+    public class GameData
+    {
+        public List<Province> Provinces { get; set; }
+
+        public GameData()
+        {
+            Provinces = new List<Province>();
         }
     }
 }
