@@ -45,10 +45,12 @@ namespace Whimsical_Editor.Data
     public class GameData
     {
         public List<Province> Provinces { get; set; }
+        public List<Realm> Realms { get; set; }
 
         public GameData()
         {
             Provinces = new List<Province>();
+            Realms = new List<Realm>();
         }
     }
 }

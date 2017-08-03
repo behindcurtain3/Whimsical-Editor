@@ -77,6 +77,27 @@ namespace Whimsical_Editor
 
             foreach (string f in CurrentMod.ProvinceFiles)
                 CurrentMod.Data.Provinces.AddRange(LoadJsonArrayFile<Province>(f, "provinces"));
+
+            // Setup the realm tree
+            realmsTreeView.Nodes.Clear();
+
+            foreach (string f in CurrentMod.RealmFiles)
+            {
+                // Load the file data
+                List<Realm> realmsInFile = LoadJsonArrayFile<Realm>(f, "realms");
+                CurrentMod.Data.Realms.AddRange(realmsInFile);
+
+                // Setup the root tree node for this file
+                TreeNode n = new TreeNode(f);
+                realmsTreeView.Nodes.Add(n);
+
+                // Add a subnode for each realm in the file
+                foreach(Realm r in realmsInFile)
+                {
+                    TreeNode nn = new TreeNode(r.Name);
+                    n.Nodes.Add(nn);
+                }
+            }
         }
 
         private void CloseCurrentMod()
