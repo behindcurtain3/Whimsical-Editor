@@ -19,6 +19,8 @@ namespace Whimsical_Editor
         public string WorkingDirectory = "";
         public Mod CurrentMod { get; set; }
 
+        private Realm SelectedRealm = null;
+
         public MainForm()
         {
             InitializeComponent();
@@ -29,30 +31,8 @@ namespace Whimsical_Editor
         {
             // Setup the working directory
             WorkingDirectory = UserPreferences.Default.WorkingDirectory;
-        }
-        
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Mod File (*.txt)|*.txt";
-            openFileDialog.InitialDirectory = WorkingDirectory;
-            openFileDialog.Multiselect = false;
-            openFileDialog.Title = "Select a mod to open";
-
-            if (openFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-            {
-                System.Console.WriteLine(openFileDialog.FileName);
-
-                if (CurrentMod != null)
-                    CloseCurrentMod();
-
-                SetCurrentMod(openFileDialog.FileName);
-            }
+            realmsTreeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(realmsTreeView_NodeMouseClick);
         }
 
         private void SetCurrentMod(string file)
@@ -75,8 +55,23 @@ namespace Whimsical_Editor
             modRealmFilesListBox.Items.AddRange(CurrentMod.RealmFiles.ToArray());
             modLocalizationFilesListBox.Items.AddRange(CurrentMod.LocalizationFiles.ToArray());
 
+            // Setup the provinces tree
+            provincesTreeView.Nodes.Clear();
+
             foreach (string f in CurrentMod.ProvinceFiles)
-                CurrentMod.Data.Provinces.AddRange(LoadJsonArrayFile<Province>(f, "provinces"));
+            {
+                List<Province> provincesInFile = LoadJsonArrayFile<Province>(f, "provinces");
+                CurrentMod.Data.Provinces.AddRange(provincesInFile);
+
+                TreeNode n = new TreeNode(f);
+                provincesTreeView.Nodes.Add(n);
+
+                foreach (Province p in provincesInFile)
+                {
+                    TreeNode nn = new TreeNode(p.Name);
+                    n.Nodes.Add(nn);
+                }
+            }
 
             // Setup the realm tree
             realmsTreeView.Nodes.Clear();
@@ -92,7 +87,7 @@ namespace Whimsical_Editor
                 realmsTreeView.Nodes.Add(n);
 
                 // Add a subnode for each realm in the file
-                foreach(Realm r in realmsInFile)
+                foreach (Realm r in realmsInFile)
                 {
                     TreeNode nn = new TreeNode(r.Name);
                     n.Nodes.Add(nn);
@@ -103,6 +98,30 @@ namespace Whimsical_Editor
         private void CloseCurrentMod()
         {
 
+        }
+
+        private void SaveMod()
+        {
+            if (CurrentMod == null)
+                return;
+
+            // Save out the province files
+            foreach(TreeNode node in realmsTreeView.Nodes)
+            {
+                string file = CurrentMod.RealmFiles.Find(x => x.Equals(node.Text));
+
+                if(!String.IsNullOrEmpty(file))
+                {
+                    JArray array = new JArray();
+                    foreach(TreeNode child in node.Nodes)
+                    {
+                        Realm r = CurrentMod.Data.Realms.Find(x => x.Name.Equals(child.Text));
+                        string json = JsonConvert.SerializeObject(r);
+                        // TODO: write to file
+                    }
+                }
+
+            }
         }
 
         private T LoadJsonObjectFile<T>(string file)
@@ -133,5 +152,78 @@ namespace Whimsical_Editor
 
             return list;
         }
+
+        #region Mouseclick events
+
+        private void realmsTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeNode selectedNode = e.Node;
+
+            // Don't do this on a right-click
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                return;
+
+            String nodeName = e.Node.Text;            
+            SelectedRealm = CurrentMod.Data.Realms.Find(delegate (Realm r) { return r.Name.Equals(nodeName); });
+
+            if(SelectedRealm != null)
+            {
+                selectedRealmID.Text = SelectedRealm.ID.ToString();
+                selectedRealmID.DataBindings.Clear();
+                selectedRealmID.DataBindings.Add("Text", SelectedRealm, "ID");
+
+                selectedRealmName.Text = SelectedRealm.Name;
+                selectedRealmName.DataBindings.Clear();
+                selectedRealmName.DataBindings.Add("Text", SelectedRealm, "Name");
+
+                selectedRealmRank.Text = SelectedRealm.Rank;
+                selectedRealmRank.DataBindings.Clear();
+                selectedRealmRank.DataBindings.Add("Text", SelectedRealm, "Rank");
+
+                selectedRealmR.Text = SelectedRealm.R.ToString();
+                selectedRealmR.DataBindings.Clear();
+                selectedRealmR.DataBindings.Add("Text", SelectedRealm, "R");
+
+                selectedRealmG.Text = SelectedRealm.G.ToString();
+                selectedRealmG.DataBindings.Clear();
+                selectedRealmG.DataBindings.Add("Text", SelectedRealm, "G");
+
+                selectedRealmB.Text = SelectedRealm.B.ToString();
+                selectedRealmB.DataBindings.Clear();
+                selectedRealmB.DataBindings.Add("Text", SelectedRealm, "B");
+            }
+
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Mod File (*.txt)|*.txt";
+            openFileDialog.InitialDirectory = WorkingDirectory;
+            openFileDialog.Multiselect = false;
+            openFileDialog.Title = "Select a mod to open";
+
+            if (openFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Console.WriteLine(openFileDialog.FileName);
+
+                if (CurrentMod != null)
+                    CloseCurrentMod();
+
+                SetCurrentMod(openFileDialog.FileName);
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveMod();
+        }
+
+        #endregion        
     }
 }

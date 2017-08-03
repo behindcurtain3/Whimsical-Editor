@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Mod.cs" />
+    <Compile Include="Data\Notifier.cs" />
     <Compile Include="Data\Province.cs" />
     <Compile Include="Data\Realm.cs" />
     <Compile Include="MainForm.cs">
