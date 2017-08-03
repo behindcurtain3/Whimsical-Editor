@@ -15,10 +15,7 @@ namespace Whimsical_Editor.Wrappers
 
         [JsonIgnore]
         public string FileName { get; set; }
-
-        [JsonIgnore]
-        public string FilePath { get; set; }
-
+        
         public RealmJsonFile()
         {
             Realms = new List<Realm>();

@@ -82,6 +82,8 @@
             this.provincesTreeView = new System.Windows.Forms.TreeView();
             this.contextMenuRealmRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextRealmRootNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuRealmTree = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItemAddRealmFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -95,6 +97,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.contextMenuRealmRoot.SuspendLayout();
+            this.contextMenuRealmTree.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -558,6 +561,7 @@
             // 
             // realmsTreeView
             // 
+            this.realmsTreeView.ContextMenuStrip = this.contextMenuRealmTree;
             this.realmsTreeView.Dock = System.Windows.Forms.DockStyle.Left;
             this.realmsTreeView.Location = new System.Drawing.Point(2, 2);
             this.realmsTreeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -591,13 +595,27 @@
             this.contextMenuRealmRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextRealmRootNew});
             this.contextMenuRealmRoot.Name = "contextMenuRealmRoot";
-            this.contextMenuRealmRoot.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuRealmRoot.Size = new System.Drawing.Size(133, 26);
             // 
             // contextRealmRootNew
             // 
             this.contextRealmRootNew.Name = "contextRealmRootNew";
-            this.contextRealmRootNew.Size = new System.Drawing.Size(152, 22);
+            this.contextRealmRootNew.Size = new System.Drawing.Size(132, 22);
             this.contextRealmRootNew.Text = "Add Realm";
+            // 
+            // contextMenuRealmTree
+            // 
+            this.contextMenuRealmTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemAddRealmFile});
+            this.contextMenuRealmTree.Name = "contextMenuRealmTree";
+            this.contextMenuRealmTree.Size = new System.Drawing.Size(168, 26);
+            // 
+            // menuItemAddRealmFile
+            // 
+            this.menuItemAddRealmFile.Name = "menuItemAddRealmFile";
+            this.menuItemAddRealmFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.menuItemAddRealmFile.Size = new System.Drawing.Size(167, 22);
+            this.menuItemAddRealmFile.Text = "Add File...";
             // 
             // MainForm
             // 
@@ -630,6 +648,7 @@
             this.groupBox3.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.contextMenuRealmRoot.ResumeLayout(false);
+            this.contextMenuRealmTree.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -690,6 +709,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuRealmRoot;
         private System.Windows.Forms.ToolStripMenuItem contextRealmRootNew;
+        private System.Windows.Forms.ContextMenuStrip contextMenuRealmTree;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAddRealmFile;
     }
 }
 

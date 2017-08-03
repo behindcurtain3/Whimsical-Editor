@@ -17,7 +17,9 @@ namespace Whimsical_Editor
 {
     public partial class MainForm : Form
     {
-        public string WorkingDirectory = "";
+        public const string ProvincesDirectory = "provinces";
+        public const string RealmsDirectory = "realms";
+        public string WorkingDirectory = "";        
         public Mod CurrentMod { get; set; }
 
         private Realm SelectedRealm = null;
@@ -35,18 +37,20 @@ namespace Whimsical_Editor
 
             realmsTreeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(realmsTreeView_NodeMouseClick);
             contextRealmRootNew.Click += ContextRealmRootNew_Click;
+            menuItemAddRealmFile.Click += MenuItemAddRealmFile_Click;
         }        
 
         private void SetCurrentMod(string file)
         {
             if (!File.Exists(file))
-                return;
+                return;            
+
+            CurrentMod = JsonConvert.DeserializeObject<Mod>(File.ReadAllText(file));
+            CurrentMod.FileName = file;
 
             WorkingDirectory = Path.GetDirectoryName(file);
             UserPreferences.Default.WorkingDirectory = WorkingDirectory;
             UserPreferences.Default.Save();
-
-            CurrentMod = JsonConvert.DeserializeObject<Mod>(File.ReadAllText(file));
 
             modNameTextBox.Text = CurrentMod.Name;
             modIDTextBox.Text = CurrentMod.ID;
@@ -59,6 +63,11 @@ namespace Whimsical_Editor
 
             // Setup the provinces tree
             provincesTreeView.Nodes.Clear();
+
+            foreach (string f in Directory.GetFiles(Path.Combine(WorkingDirectory, CurrentMod.Name, ProvincesDirectory)))
+            {
+
+            }
 
             foreach (string f in CurrentMod.ProvinceFiles)
             {
@@ -78,18 +87,14 @@ namespace Whimsical_Editor
             // Setup the realm tree
             realmsTreeView.Nodes.Clear();
 
-            foreach (string f in CurrentMod.RealmFiles)
+            foreach (string f in Directory.GetFiles(Path.Combine(WorkingDirectory, CurrentMod.Name, RealmsDirectory), "*.txt"))
             {
-                string filePath = Path.Combine(WorkingDirectory, f);
-
                 // Load the file data
-                RealmJsonFile loadedFile = JsonConvert.DeserializeObject<RealmJsonFile>(File.ReadAllText(filePath));
-                loadedFile.FileName = f;
-                loadedFile.FilePath = filePath;
+                RealmJsonFile loadedFile = JsonConvert.DeserializeObject<RealmJsonFile>(File.ReadAllText(f));
+                loadedFile.FileName = Path.GetFileName(f);
 
                 CurrentMod.Data.RealmFiles.Add(loadedFile);
-                
-            }
+            }            
 
             foreach(RealmJsonFile realmFile in CurrentMod.Data.RealmFiles)
             {
@@ -116,7 +121,8 @@ namespace Whimsical_Editor
             // Save out the province files
             foreach(RealmJsonFile file in CurrentMod.Data.RealmFiles)
             {
-                File.WriteAllText(file.FilePath, JsonConvert.SerializeObject(file));
+                string filePath = Path.Combine(WorkingDirectory, CurrentMod.Name, ProvincesDirectory, file.FileName);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(file));
             }
         }
 
@@ -224,8 +230,6 @@ namespace Whimsical_Editor
 
             if (openFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                System.Console.WriteLine(openFileDialog.FileName);
-
                 if (CurrentMod != null)
                     CloseCurrentMod();
 
@@ -253,6 +257,26 @@ namespace Whimsical_Editor
             BuildRealmFileTree(selectedNode, file);
         }
 
+        private void MenuItemAddRealmFile_Click(object sender, EventArgs e)
+        {
+            NewRealmFileForm realm = new NewRealmFileForm();
+            DialogResult result = realm.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                RealmJsonFile file = new RealmJsonFile();
+                file.FileName = realm.realmFileNameText.Text;
+
+                CurrentMod.Data.RealmFiles.Add(file);
+                CurrentMod.RealmFiles.Add(file.FileName);
+
+                TreeNode root = new TreeNode(file.FileName);
+                root.Tag = file;
+                root.ContextMenuStrip = contextMenuRealmRoot;
+                realmsTreeView.Nodes.Add(root);
+            }
+        }
+
         #endregion
 
         #region Data change events
@@ -265,7 +289,8 @@ namespace Whimsical_Editor
             {
                 case "ID":
                 case "Name":
-                    realm.Node.Text = realm.ToString();
+                    if(realm.Node != null)
+                        realm.Node.Text = realm.ToString();
                     break;
             }
         }

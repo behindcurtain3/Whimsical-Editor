@@ -34,6 +34,9 @@ namespace Whimsical_Editor.Data
         [JsonIgnore]
         public GameData Data { get; set; }
 
+        [JsonIgnore]
+        public string FileName { get; set; }
+
         public Mod()
         {
             ProvinceFiles = new List<string>();
