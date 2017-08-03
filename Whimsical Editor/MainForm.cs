@@ -118,21 +118,9 @@ namespace Whimsical_Editor
                 return;
 
             // Save out the province files
-            foreach(TreeNode node in realmsTreeView.Nodes)
+            foreach(RealmJsonFile file in CurrentMod.Data.RealmFiles)
             {
-                string file = CurrentMod.RealmFiles.Find(x => x.Equals(node.Text));
-
-                if(!String.IsNullOrEmpty(file))
-                {
-                    JArray array = new JArray();
-                    foreach(TreeNode child in node.Nodes)
-                    {
-                        //Realm r = CurrentMod.Data.Realms.Find(x => x.Name.Equals(child.Text));
-                        //string json = JsonConvert.SerializeObject(r);
-                        // TODO: write to file
-                    }
-                }
-
+                File.WriteAllText(file.FilePath, JsonConvert.SerializeObject(file));
             }
         }
 
