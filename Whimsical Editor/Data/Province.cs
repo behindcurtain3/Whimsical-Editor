@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Whimsical_Editor.Data
 {
@@ -32,7 +33,10 @@ namespace Whimsical_Editor.Data
 
         [JsonProperty("adjacencies")]
         public List<int> Adjacencies { get; set; }
-        
+
+        [JsonIgnore]
+        public TreeNode Node { get; set; }
+
         public Province()
         {
             Adjacencies = new List<int>();

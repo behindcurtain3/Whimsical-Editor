@@ -46,13 +46,6 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.modTabControl = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.modProvinceFilesListBox = new System.Windows.Forms.ListBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.modRealmFilesListBox = new System.Windows.Forms.ListBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.modLocalizationFilesListBox = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.modDescriptionTextBox = new System.Windows.Forms.TextBox();
@@ -87,10 +80,6 @@
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.modTabControl.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -221,17 +210,18 @@
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage6);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Enabled = false;
             this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1002, 502);
             this.tabControl.TabIndex = 2;
+            this.tabControl.Visible = false;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.modTabControl);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -240,81 +230,6 @@
             this.tabPage1.Size = new System.Drawing.Size(994, 476);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mod Details";
-            // 
-            // modTabControl
-            // 
-            this.modTabControl.Controls.Add(this.tabPage3);
-            this.modTabControl.Controls.Add(this.tabPage4);
-            this.modTabControl.Controls.Add(this.tabPage5);
-            this.modTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modTabControl.Location = new System.Drawing.Point(375, 2);
-            this.modTabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.modTabControl.Name = "modTabControl";
-            this.modTabControl.SelectedIndex = 0;
-            this.modTabControl.Size = new System.Drawing.Size(617, 472);
-            this.modTabControl.TabIndex = 2;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage3.Controls.Add(this.modProvinceFilesListBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage3.Size = new System.Drawing.Size(609, 446);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Province Files";
-            // 
-            // modProvinceFilesListBox
-            // 
-            this.modProvinceFilesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modProvinceFilesListBox.FormattingEnabled = true;
-            this.modProvinceFilesListBox.Location = new System.Drawing.Point(2, 2);
-            this.modProvinceFilesListBox.Name = "modProvinceFilesListBox";
-            this.modProvinceFilesListBox.Size = new System.Drawing.Size(605, 442);
-            this.modProvinceFilesListBox.TabIndex = 0;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage4.Controls.Add(this.modRealmFilesListBox);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage4.Size = new System.Drawing.Size(609, 446);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Realm Files";
-            // 
-            // modRealmFilesListBox
-            // 
-            this.modRealmFilesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modRealmFilesListBox.FormattingEnabled = true;
-            this.modRealmFilesListBox.Location = new System.Drawing.Point(2, 2);
-            this.modRealmFilesListBox.Name = "modRealmFilesListBox";
-            this.modRealmFilesListBox.Size = new System.Drawing.Size(605, 442);
-            this.modRealmFilesListBox.TabIndex = 0;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage5.Controls.Add(this.modLocalizationFilesListBox);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(609, 446);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Localization Files";
-            // 
-            // modLocalizationFilesListBox
-            // 
-            this.modLocalizationFilesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modLocalizationFilesListBox.FormattingEnabled = true;
-            this.modLocalizationFilesListBox.Location = new System.Drawing.Point(0, 0);
-            this.modLocalizationFilesListBox.Name = "modLocalizationFilesListBox";
-            this.modLocalizationFilesListBox.Size = new System.Drawing.Size(609, 446);
-            this.modLocalizationFilesListBox.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -635,10 +550,6 @@
             this.menuStrip1.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.modTabControl.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -678,17 +589,10 @@
         private System.Windows.Forms.TextBox modIDTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox modNameTextBox;
-        private System.Windows.Forms.TabControl modTabControl;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox modDescriptionTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox modAuthorTextBox;
-        private System.Windows.Forms.ListBox modProvinceFilesListBox;
-        private System.Windows.Forms.ListBox modRealmFilesListBox;
-        private System.Windows.Forms.ListBox modLocalizationFilesListBox;
         private System.Windows.Forms.TreeView realmsTreeView;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TreeView provincesTreeView;

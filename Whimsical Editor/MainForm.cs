@@ -17,6 +17,7 @@ namespace Whimsical_Editor
 {
     public partial class MainForm : Form
     {
+        public const string EditorName = "Whimsical Editor";
         public const string ProvincesDirectory = "provinces";
         public const string RealmsDirectory = "realms";
         public string WorkingDirectory = "";        
@@ -28,6 +29,9 @@ namespace Whimsical_Editor
         {
             InitializeComponent();
             Initialize();
+
+            if (!String.IsNullOrEmpty(UserPreferences.Default.LastMod))
+                SetCurrentMod(UserPreferences.Default.LastMod);
         }
 
         public void Initialize()
@@ -50,38 +54,44 @@ namespace Whimsical_Editor
 
             WorkingDirectory = Path.GetDirectoryName(file);
             UserPreferences.Default.WorkingDirectory = WorkingDirectory;
+            UserPreferences.Default.LastMod = file;
             UserPreferences.Default.Save();
 
-            modNameTextBox.Text = CurrentMod.Name;
-            modIDTextBox.Text = CurrentMod.ID;
-            modAuthorTextBox.Text = CurrentMod.Author;
-            modDescriptionTextBox.Text = CurrentMod.Description;
+            this.Text = EditorName + " - " + CurrentMod.Name;
+            tabControl.Enabled = true;
+            tabControl.Visible = true;
 
-            modProvinceFilesListBox.Items.AddRange(CurrentMod.ProvinceFiles.ToArray());
-            modRealmFilesListBox.Items.AddRange(CurrentMod.RealmFiles.ToArray());
-            modLocalizationFilesListBox.Items.AddRange(CurrentMod.LocalizationFiles.ToArray());
+            modNameTextBox.Text = CurrentMod.Name;
+            modNameTextBox.DataBindings.Add("Text", CurrentMod, "Name");
+
+            modIDTextBox.Text = CurrentMod.ID;
+            modIDTextBox.DataBindings.Add("Text", CurrentMod, "ID");
+
+            modAuthorTextBox.Text = CurrentMod.Author;
+            modAuthorTextBox.DataBindings.Add("Text", CurrentMod, "Author");
+
+            modDescriptionTextBox.Text = CurrentMod.Description;
+            modDescriptionTextBox.DataBindings.Add("Text", CurrentMod, "Description");
 
             // Setup the provinces tree
             provincesTreeView.Nodes.Clear();
 
-            foreach (string f in Directory.GetFiles(Path.Combine(WorkingDirectory, CurrentMod.Name, ProvincesDirectory)))
+            foreach (string f in Directory.GetFiles(Path.Combine(WorkingDirectory, CurrentMod.Name, ProvincesDirectory), "*.txt"))
             {
+                ProvinceJsonFile loadedFile = JsonConvert.DeserializeObject<ProvinceJsonFile>(File.ReadAllText(f));
+                loadedFile.FileName = Path.GetFileName(f);
 
+                CurrentMod.Data.ProvinceFiles.Add(loadedFile);
             }
 
-            foreach (string f in CurrentMod.ProvinceFiles)
+            foreach (ProvinceJsonFile provinceFile in CurrentMod.Data.ProvinceFiles)
             {
-                List<Province> provincesInFile = LoadJsonArrayFile<Province>(f, "provinces");
-                CurrentMod.Data.Provinces.AddRange(provincesInFile);
+                TreeNode root = new TreeNode(provinceFile.FileName);
+                root.Expand();
+                root.Tag = provinceFile;
+                provincesTreeView.Nodes.Add(root);
 
-                TreeNode n = new TreeNode(f);
-                provincesTreeView.Nodes.Add(n);
-
-                foreach (Province p in provincesInFile)
-                {
-                    TreeNode nn = new TreeNode(p.Name);
-                    n.Nodes.Add(nn);
-                }
+                BuildProvinceFileTree(root, provinceFile);
             }
 
             // Setup the realm tree
@@ -119,11 +129,21 @@ namespace Whimsical_Editor
                 return;
 
             // Save out the province files
-            foreach(RealmJsonFile file in CurrentMod.Data.RealmFiles)
+            foreach (ProvinceJsonFile file in CurrentMod.Data.ProvinceFiles)
             {
                 string filePath = Path.Combine(WorkingDirectory, CurrentMod.Name, ProvincesDirectory, file.FileName);
                 File.WriteAllText(filePath, JsonConvert.SerializeObject(file));
             }
+
+            foreach (RealmJsonFile file in CurrentMod.Data.RealmFiles)
+            {
+                string filePath = Path.Combine(WorkingDirectory, CurrentMod.Name, RealmsDirectory, file.FileName);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(file));
+            }
+
+            // Save out the actual mod file itself
+            string modFile = CurrentMod.FileName;
+            File.WriteAllText(modFile, JsonConvert.SerializeObject(CurrentMod));
         }
 
         private T LoadJsonObjectFile<T>(string file)
@@ -134,6 +154,20 @@ namespace Whimsical_Editor
                 return default(T);
 
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(file));
+        }
+
+        private void BuildProvinceFileTree(TreeNode root, ProvinceJsonFile file)
+        {
+            root.Nodes.Clear();
+
+            // Add a subnode for each realm in the file
+            foreach (Province p in file.Provinces.OrderBy(x => x.ID))
+            {
+                TreeNode node = new TreeNode(p.ToString());
+                node.Tag = p;
+                root.Nodes.Add(node);
+                p.Node = node;
+            }
         }
 
         private void BuildRealmFileTree(TreeNode root, RealmJsonFile file)
@@ -268,7 +302,6 @@ namespace Whimsical_Editor
                 file.FileName = realm.realmFileNameText.Text;
 
                 CurrentMod.Data.RealmFiles.Add(file);
-                CurrentMod.RealmFiles.Add(file.FileName);
 
                 TreeNode root = new TreeNode(file.FileName);
                 root.Tag = file;

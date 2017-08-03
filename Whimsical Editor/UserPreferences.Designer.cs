@@ -34,5 +34,17 @@ namespace Whimsical_Editor {
                 this["WorkingDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastMod {
+            get {
+                return ((string)(this["LastMod"]));
+            }
+            set {
+                this["LastMod"] = value;
+            }
+        }
     }
 }
