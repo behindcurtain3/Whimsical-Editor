@@ -45,6 +45,6 @@ namespace Whimsical_Editor.Data
             ProvincesDeJure = new List<int>();
             Vassals = new List<int>();
             VassalsDeJure = new List<int>();
-        }        
+        }
     }
 }

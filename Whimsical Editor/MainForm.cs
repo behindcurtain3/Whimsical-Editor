@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Whimsical_Editor.Data;
+using Whimsical_Editor.Wrappers;
 
 namespace Whimsical_Editor
 {
@@ -78,19 +79,30 @@ namespace Whimsical_Editor
 
             foreach (string f in CurrentMod.RealmFiles)
             {
-                // Load the file data
-                List<Realm> realmsInFile = LoadJsonArrayFile<Realm>(f, "realms");
-                CurrentMod.Data.Realms.AddRange(realmsInFile);
+                string filePath = Path.Combine(WorkingDirectory, f);
 
-                // Setup the root tree node for this file
-                TreeNode n = new TreeNode(f);
-                realmsTreeView.Nodes.Add(n);
+                // Load the file data
+                RealmJsonFile loadedFile = JsonConvert.DeserializeObject<RealmJsonFile>(File.ReadAllText(filePath));
+                loadedFile.FileName = f;
+                loadedFile.FilePath = filePath;
+
+                CurrentMod.Data.RealmFiles.Add(loadedFile);
+                
+            }
+
+            foreach(RealmJsonFile realmFile in CurrentMod.Data.RealmFiles)
+            {
+                TreeNode root = new TreeNode(realmFile.FileName);
+                root.Expand();
+                root.Tag = realmFile;
+                realmsTreeView.Nodes.Add(root);
 
                 // Add a subnode for each realm in the file
-                foreach (Realm r in realmsInFile)
+                foreach (Realm r in realmFile.Realms)
                 {
-                    TreeNode nn = new TreeNode(r.Name);
-                    n.Nodes.Add(nn);
+                    TreeNode node = new TreeNode(r.Name);
+                    node.Tag = r;
+                    root.Nodes.Add(node);
                 }
             }
         }
@@ -115,8 +127,8 @@ namespace Whimsical_Editor
                     JArray array = new JArray();
                     foreach(TreeNode child in node.Nodes)
                     {
-                        Realm r = CurrentMod.Data.Realms.Find(x => x.Name.Equals(child.Text));
-                        string json = JsonConvert.SerializeObject(r);
+                        //Realm r = CurrentMod.Data.Realms.Find(x => x.Name.Equals(child.Text));
+                        //string json = JsonConvert.SerializeObject(r);
                         // TODO: write to file
                     }
                 }
@@ -163,9 +175,11 @@ namespace Whimsical_Editor
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 return;
 
-            String nodeName = e.Node.Text;            
-            SelectedRealm = CurrentMod.Data.Realms.Find(delegate (Realm r) { return r.Name.Equals(nodeName); });
+            if (e.Node.Tag is RealmJsonFile)
+                return;
 
+            SelectedRealm = (Realm) e.Node.Tag;
+            
             if(SelectedRealm != null)
             {
                 selectedRealmID.Text = SelectedRealm.ID.ToString();

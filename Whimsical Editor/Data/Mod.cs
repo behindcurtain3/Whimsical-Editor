@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whimsical_Editor.Wrappers;
 
 namespace Whimsical_Editor.Data
 {
@@ -45,12 +46,12 @@ namespace Whimsical_Editor.Data
     public class GameData
     {
         public List<Province> Provinces { get; set; }
-        public List<Realm> Realms { get; set; }
+        public List<RealmJsonFile> RealmFiles { get; set; }
 
         public GameData()
         {
             Provinces = new List<Province>();
-            Realms = new List<Realm>();
+            RealmFiles = new List<RealmJsonFile>();
         }
     }
 }
