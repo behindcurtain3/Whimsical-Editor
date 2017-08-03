@@ -12,8 +12,7 @@ namespace Whimsical_Editor.Data
         public event PropertyChangedEventHandler PropertyChanged;
         protected void Notify(string name)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

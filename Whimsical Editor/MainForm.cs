@@ -34,7 +34,8 @@ namespace Whimsical_Editor
             WorkingDirectory = UserPreferences.Default.WorkingDirectory;
 
             realmsTreeView.NodeMouseClick += new TreeNodeMouseClickEventHandler(realmsTreeView_NodeMouseClick);
-        }
+            contextRealmRootNew.Click += ContextRealmRootNew_Click;
+        }        
 
         private void SetCurrentMod(string file)
         {
@@ -95,15 +96,10 @@ namespace Whimsical_Editor
                 TreeNode root = new TreeNode(realmFile.FileName);
                 root.Expand();
                 root.Tag = realmFile;
+                root.ContextMenuStrip = contextMenuRealmRoot;
                 realmsTreeView.Nodes.Add(root);
 
-                // Add a subnode for each realm in the file
-                foreach (Realm r in realmFile.Realms)
-                {
-                    TreeNode node = new TreeNode(r.Name);
-                    node.Tag = r;
-                    root.Nodes.Add(node);
-                }
+                BuildRealmFileTree(root, realmFile);                
             }
         }
 
@@ -132,6 +128,20 @@ namespace Whimsical_Editor
                 return default(T);
 
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(file));
+        }
+
+        private void BuildRealmFileTree(TreeNode root, RealmJsonFile file)
+        {
+            root.Nodes.Clear();
+
+            // Add a subnode for each realm in the file
+            foreach (Realm r in file.Realms.OrderBy(x => x.ID))
+            {
+                TreeNode node = new TreeNode(r.ToString());
+                node.Tag = r;
+                root.Nodes.Add(node);
+                r.Node = node;
+            }
         }
 
         private List<T> LoadJsonArrayFile<T>(string file, string key)
@@ -172,7 +182,7 @@ namespace Whimsical_Editor
             {
                 selectedRealmID.Text = SelectedRealm.ID.ToString();
                 selectedRealmID.DataBindings.Clear();
-                selectedRealmID.DataBindings.Add("Text", SelectedRealm, "ID");
+                selectedRealmID.DataBindings.Add("Text", SelectedRealm, "ID");                
 
                 selectedRealmName.Text = SelectedRealm.Name;
                 selectedRealmName.DataBindings.Clear();
@@ -193,6 +203,8 @@ namespace Whimsical_Editor
                 selectedRealmB.Text = SelectedRealm.B.ToString();
                 selectedRealmB.DataBindings.Clear();
                 selectedRealmB.DataBindings.Add("Text", SelectedRealm, "B");
+
+                SelectedRealm.PropertyChanged += SelectedRealm_PropertyChanged;
             }
 
         }
@@ -226,6 +238,38 @@ namespace Whimsical_Editor
             SaveMod();
         }
 
-        #endregion        
+        private void ContextRealmRootNew_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNode = realmsTreeView.SelectedNode;
+
+            if (selectedNode.Tag is Realm)
+                selectedNode = selectedNode.Parent;
+
+            RealmJsonFile file = (RealmJsonFile)selectedNode.Tag;
+            Realm r = new Realm() { ID = 0, Name = "New Realm" };
+
+            file.Realms.Add(r);
+
+            BuildRealmFileTree(selectedNode, file);
+        }
+
+        #endregion
+
+        #region Data change events
+
+        private void SelectedRealm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Realm realm = (Realm)sender;
+
+            switch (e.PropertyName)
+            {
+                case "ID":
+                case "Name":
+                    realm.Node.Text = realm.ToString();
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

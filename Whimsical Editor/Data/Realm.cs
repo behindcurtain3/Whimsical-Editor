@@ -4,16 +4,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Whimsical_Editor.Data
 {
-    public class Realm
+    public class Realm : Notifier
     {
+        #region Fields
+
+        private int _id;
+        private string _name;
+
+        #endregion
+
         [JsonProperty("id")]
-        public int ID { get; set; }
+        public int ID
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                Notify("ID");
+            }
+        }
 
         [JsonProperty("name")]
-        public String Name { get; set; }
+        public String Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                Notify("Name");
+            }
+        }
 
         [JsonProperty("rank")]
         public String Rank { get; set; }
@@ -39,12 +63,20 @@ namespace Whimsical_Editor.Data
         [JsonProperty("vassals_de_jure")]
         public List<int> VassalsDeJure { get; set; }
 
+        [JsonIgnore]
+        public TreeNode Node { get; set; }
+
         public Realm()
         {
             Provinces = new List<int>();
             ProvincesDeJure = new List<int>();
             Vassals = new List<int>();
             VassalsDeJure = new List<int>();
+        }
+
+        public override string ToString()
+        {
+            return ID.ToString() + " - " + Name;
         }
     }
 }
