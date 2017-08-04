@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Character.cs" />
     <Compile Include="Data\Mod.cs" />
     <Compile Include="Data\Notifier.cs" />
     <Compile Include="Data\Province.cs" />

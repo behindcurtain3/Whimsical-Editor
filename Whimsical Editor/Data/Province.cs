@@ -41,5 +41,10 @@ namespace Whimsical_Editor.Data
         {
             Adjacencies = new List<int>();
         }
+
+        public override string ToString()
+        {
+            return ID.ToString() + " - " + Name;
+        }
     }
 }
