@@ -244,6 +244,16 @@ namespace Whimsical_Editor
                 selectedRealmB.DataBindings.Clear();
                 selectedRealmB.DataBindings.Add("Text", SelectedRealm, "B");
 
+                List<Province> provinces = new List<Province>();
+                foreach (ProvinceJsonFile file in CurrentMod.Data.ProvinceFiles)
+                {
+                    provinces.AddRange(file.Provinces.Where(x => !SelectedRealm.Provinces.Contains(x.ID)));
+                }
+                provinces = provinces.OrderBy(x => x.ID).ToList();
+                selectedRealmProvincesCombo.DataSource = provinces;
+                selectedRealmProvincesCombo.DisplayMember = "Name";
+                selectedRealmProvincesCombo.ValueMember = "ID";
+
                 SelectedRealm.PropertyChanged += SelectedRealm_PropertyChanged;
             }
 

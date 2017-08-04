@@ -71,12 +71,17 @@
             this.selectedRealmID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.realmsTreeView = new System.Windows.Forms.TreeView();
+            this.contextMenuRealmTree = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItemAddRealmFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.provincesTreeView = new System.Windows.Forms.TreeView();
             this.contextMenuRealmRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextRealmRootNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuRealmTree = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemAddRealmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.selectedRealmProvincesCombo = new System.Windows.Forms.ComboBox();
+            this.realmButtonAddProvince = new System.Windows.Forms.Button();
+            this.realmListBoxProvinces = new System.Windows.Forms.ListBox();
+            this.realmButtonRemoveProvince = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -84,18 +89,19 @@
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.contextMenuRealmTree.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.contextMenuRealmRoot.SuspendLayout();
-            this.contextMenuRealmTree.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.statusStrip.Location = new System.Drawing.Point(0, 526);
+            this.statusStrip.Location = new System.Drawing.Point(0, 1032);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Padding = new System.Windows.Forms.Padding(0, 0, 7, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1002, 22);
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(0, 0, 14, 0);
+            this.statusStrip.Size = new System.Drawing.Size(2004, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -106,8 +112,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1002, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(2004, 40);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -120,7 +125,7 @@
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 36);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -133,49 +138,49 @@
             this.characterToolStripMenuItem,
             this.resourceToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(259, 38);
             this.newToolStripMenuItem.Text = "New";
             // 
             // modToolStripMenuItem
             // 
             this.modToolStripMenuItem.Name = "modToolStripMenuItem";
-            this.modToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.modToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.modToolStripMenuItem.Text = "Mod";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(212, 6);
             // 
             // nationToolStripMenuItem
             // 
             this.nationToolStripMenuItem.Name = "nationToolStripMenuItem";
-            this.nationToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.nationToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.nationToolStripMenuItem.Text = "Nation";
             // 
             // provinceToolStripMenuItem
             // 
             this.provinceToolStripMenuItem.Name = "provinceToolStripMenuItem";
-            this.provinceToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.provinceToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.provinceToolStripMenuItem.Text = "Province";
             // 
             // characterToolStripMenuItem
             // 
             this.characterToolStripMenuItem.Name = "characterToolStripMenuItem";
-            this.characterToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.characterToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.characterToolStripMenuItem.Text = "Character";
             // 
             // resourceToolStripMenuItem
             // 
             this.resourceToolStripMenuItem.Name = "resourceToolStripMenuItem";
-            this.resourceToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.resourceToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.resourceToolStripMenuItem.Text = "Resource";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(259, 38);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -183,20 +188,20 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(259, 38);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(256, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(259, 38);
             this.quitToolStripMenuItem.Text = "Exit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -211,11 +216,11 @@
             this.tabControl.Controls.Add(this.tabPage6);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Enabled = false;
-            this.tabControl.Location = new System.Drawing.Point(0, 24);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl.Location = new System.Drawing.Point(0, 40);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1002, 502);
+            this.tabControl.Size = new System.Drawing.Size(2004, 992);
             this.tabControl.TabIndex = 2;
             this.tabControl.Visible = false;
             // 
@@ -223,11 +228,11 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
             this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Location = new System.Drawing.Point(8, 39);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage1.Size = new System.Drawing.Size(994, 476);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Size = new System.Drawing.Size(1988, 945);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mod Details";
             // 
@@ -243,11 +248,11 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.modNameTextBox);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox1.Location = new System.Drawing.Point(2, 2);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(373, 472);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(746, 937);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mod Information";
@@ -255,66 +260,74 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 95);
+            this.label4.Location = new System.Drawing.Point(36, 183);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.Size = new System.Drawing.Size(126, 25);
             this.label4.TabIndex = 8;
             this.label4.Text = "Description:";
             // 
             // modDescriptionTextBox
             // 
-            this.modDescriptionTextBox.Location = new System.Drawing.Point(103, 92);
+            this.modDescriptionTextBox.Location = new System.Drawing.Point(206, 177);
+            this.modDescriptionTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.modDescriptionTextBox.Multiline = true;
             this.modDescriptionTextBox.Name = "modDescriptionTextBox";
-            this.modDescriptionTextBox.Size = new System.Drawing.Size(249, 158);
+            this.modDescriptionTextBox.Size = new System.Drawing.Size(494, 300);
             this.modDescriptionTextBox.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 72);
+            this.label3.Location = new System.Drawing.Point(36, 138);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.Size = new System.Drawing.Size(81, 25);
             this.label3.TabIndex = 6;
             this.label3.Text = "Author:";
             // 
             // modAuthorTextBox
             // 
-            this.modAuthorTextBox.Location = new System.Drawing.Point(103, 69);
+            this.modAuthorTextBox.Location = new System.Drawing.Point(206, 133);
+            this.modAuthorTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.modAuthorTextBox.Name = "modAuthorTextBox";
-            this.modAuthorTextBox.Size = new System.Drawing.Size(249, 20);
+            this.modAuthorTextBox.Size = new System.Drawing.Size(494, 31);
             this.modAuthorTextBox.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 50);
+            this.label1.Location = new System.Drawing.Point(36, 96);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 13);
+            this.label1.Size = new System.Drawing.Size(38, 25);
             this.label1.TabIndex = 4;
             this.label1.Text = "ID:";
             // 
             // modIDTextBox
             // 
-            this.modIDTextBox.Location = new System.Drawing.Point(103, 47);
+            this.modIDTextBox.Location = new System.Drawing.Point(206, 90);
+            this.modIDTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.modIDTextBox.Name = "modIDTextBox";
-            this.modIDTextBox.Size = new System.Drawing.Size(249, 20);
+            this.modIDTextBox.Size = new System.Drawing.Size(494, 31);
             this.modIDTextBox.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 28);
+            this.label2.Location = new System.Drawing.Point(36, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(74, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Name:";
             // 
             // modNameTextBox
             // 
-            this.modNameTextBox.Location = new System.Drawing.Point(103, 24);
+            this.modNameTextBox.Location = new System.Drawing.Point(206, 46);
+            this.modNameTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.modNameTextBox.Name = "modNameTextBox";
-            this.modNameTextBox.Size = new System.Drawing.Size(249, 20);
+            this.modNameTextBox.Size = new System.Drawing.Size(494, 31);
             this.modNameTextBox.TabIndex = 3;
             // 
             // tabPage2
@@ -322,16 +335,17 @@
             this.tabPage2.BackColor = System.Drawing.Color.Transparent;
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.realmsTreeView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Location = new System.Drawing.Point(8, 39);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage2.Size = new System.Drawing.Size(994, 476);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Size = new System.Drawing.Size(1988, 945);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Realms";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.selectedRealmRank);
             this.groupBox2.Controls.Add(this.label7);
@@ -340,11 +354,11 @@
             this.groupBox2.Controls.Add(this.selectedRealmID);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(291, 2);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Location = new System.Drawing.Point(578, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(701, 472);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(1406, 937);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Realm Details";
@@ -357,120 +371,120 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.selectedRealmR);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(30, 99);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Location = new System.Drawing.Point(60, 190);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(221, 84);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(442, 162);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Color";
             // 
             // selectedRealmB
             // 
-            this.selectedRealmB.Location = new System.Drawing.Point(72, 54);
-            this.selectedRealmB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmB.Location = new System.Drawing.Point(144, 104);
+            this.selectedRealmB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmB.Name = "selectedRealmB";
-            this.selectedRealmB.Size = new System.Drawing.Size(64, 20);
+            this.selectedRealmB.Size = new System.Drawing.Size(124, 31);
             this.selectedRealmB.TabIndex = 11;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(18, 56);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(36, 108);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 13);
+            this.label10.Size = new System.Drawing.Size(32, 25);
             this.label10.TabIndex = 10;
             this.label10.Text = "B:";
             // 
             // selectedRealmG
             // 
-            this.selectedRealmG.Location = new System.Drawing.Point(72, 35);
-            this.selectedRealmG.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmG.Location = new System.Drawing.Point(144, 67);
+            this.selectedRealmG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmG.Name = "selectedRealmG";
-            this.selectedRealmG.Size = new System.Drawing.Size(64, 20);
+            this.selectedRealmG.Size = new System.Drawing.Size(124, 31);
             this.selectedRealmG.TabIndex = 9;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 36);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(36, 69);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(18, 13);
+            this.label9.Size = new System.Drawing.Size(34, 25);
             this.label9.TabIndex = 8;
             this.label9.Text = "G:";
             // 
             // selectedRealmR
             // 
-            this.selectedRealmR.Location = new System.Drawing.Point(72, 16);
-            this.selectedRealmR.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmR.Location = new System.Drawing.Point(144, 31);
+            this.selectedRealmR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmR.Name = "selectedRealmR";
-            this.selectedRealmR.Size = new System.Drawing.Size(64, 20);
+            this.selectedRealmR.Size = new System.Drawing.Size(124, 31);
             this.selectedRealmR.TabIndex = 7;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 17);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(36, 33);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 13);
+            this.label8.Size = new System.Drawing.Size(33, 25);
             this.label8.TabIndex = 0;
             this.label8.Text = "R:";
             // 
             // selectedRealmRank
             // 
-            this.selectedRealmRank.Location = new System.Drawing.Point(102, 71);
-            this.selectedRealmRank.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmRank.Location = new System.Drawing.Point(204, 137);
+            this.selectedRealmRank.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmRank.Name = "selectedRealmRank";
-            this.selectedRealmRank.Size = new System.Drawing.Size(150, 20);
+            this.selectedRealmRank.Size = new System.Drawing.Size(296, 31);
             this.selectedRealmRank.TabIndex = 5;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 72);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(56, 138);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.Size = new System.Drawing.Size(68, 25);
             this.label7.TabIndex = 4;
             this.label7.Text = "Rank:";
             // 
             // selectedRealmName
             // 
-            this.selectedRealmName.Location = new System.Drawing.Point(102, 51);
-            this.selectedRealmName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmName.Location = new System.Drawing.Point(204, 98);
+            this.selectedRealmName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmName.Name = "selectedRealmName";
-            this.selectedRealmName.Size = new System.Drawing.Size(150, 20);
+            this.selectedRealmName.Size = new System.Drawing.Size(296, 31);
             this.selectedRealmName.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 53);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(56, 102);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.Size = new System.Drawing.Size(74, 25);
             this.label6.TabIndex = 2;
             this.label6.Text = "Name:";
             // 
             // selectedRealmID
             // 
-            this.selectedRealmID.Location = new System.Drawing.Point(102, 32);
-            this.selectedRealmID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectedRealmID.Location = new System.Drawing.Point(204, 62);
+            this.selectedRealmID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectedRealmID.Name = "selectedRealmID";
-            this.selectedRealmID.Size = new System.Drawing.Size(150, 20);
+            this.selectedRealmID.Size = new System.Drawing.Size(296, 31);
             this.selectedRealmID.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 34);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(56, 65);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(21, 13);
+            this.label5.Size = new System.Drawing.Size(38, 25);
             this.label5.TabIndex = 0;
             this.label5.Text = "ID:";
             // 
@@ -478,71 +492,123 @@
             // 
             this.realmsTreeView.ContextMenuStrip = this.contextMenuRealmTree;
             this.realmsTreeView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.realmsTreeView.Location = new System.Drawing.Point(2, 2);
-            this.realmsTreeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.realmsTreeView.Location = new System.Drawing.Point(4, 4);
+            this.realmsTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.realmsTreeView.Name = "realmsTreeView";
-            this.realmsTreeView.Size = new System.Drawing.Size(289, 472);
+            this.realmsTreeView.Size = new System.Drawing.Size(574, 937);
             this.realmsTreeView.TabIndex = 0;
+            // 
+            // contextMenuRealmTree
+            // 
+            this.contextMenuRealmTree.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuRealmTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemAddRealmFile});
+            this.contextMenuRealmTree.Name = "contextMenuRealmTree";
+            this.contextMenuRealmTree.Size = new System.Drawing.Size(275, 40);
+            // 
+            // menuItemAddRealmFile
+            // 
+            this.menuItemAddRealmFile.Name = "menuItemAddRealmFile";
+            this.menuItemAddRealmFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.menuItemAddRealmFile.Size = new System.Drawing.Size(274, 36);
+            this.menuItemAddRealmFile.Text = "Add File...";
             // 
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.Transparent;
             this.tabPage6.Controls.Add(this.provincesTreeView);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage6.Location = new System.Drawing.Point(8, 39);
+            this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabPage6.Size = new System.Drawing.Size(994, 489);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage6.Size = new System.Drawing.Size(1988, 918);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "Provinces";
             // 
             // provincesTreeView
             // 
             this.provincesTreeView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.provincesTreeView.Location = new System.Drawing.Point(2, 2);
-            this.provincesTreeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.provincesTreeView.Location = new System.Drawing.Point(4, 4);
+            this.provincesTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.provincesTreeView.Name = "provincesTreeView";
-            this.provincesTreeView.Size = new System.Drawing.Size(289, 485);
+            this.provincesTreeView.Size = new System.Drawing.Size(574, 910);
             this.provincesTreeView.TabIndex = 1;
             // 
             // contextMenuRealmRoot
             // 
+            this.contextMenuRealmRoot.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuRealmRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextRealmRootNew});
             this.contextMenuRealmRoot.Name = "contextMenuRealmRoot";
-            this.contextMenuRealmRoot.Size = new System.Drawing.Size(133, 26);
+            this.contextMenuRealmRoot.Size = new System.Drawing.Size(206, 40);
             // 
             // contextRealmRootNew
             // 
             this.contextRealmRootNew.Name = "contextRealmRootNew";
-            this.contextRealmRootNew.Size = new System.Drawing.Size(132, 22);
+            this.contextRealmRootNew.Size = new System.Drawing.Size(205, 36);
             this.contextRealmRootNew.Text = "Add Realm";
             // 
-            // contextMenuRealmTree
+            // groupBox4
             // 
-            this.contextMenuRealmTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemAddRealmFile});
-            this.contextMenuRealmTree.Name = "contextMenuRealmTree";
-            this.contextMenuRealmTree.Size = new System.Drawing.Size(168, 26);
+            this.groupBox4.Controls.Add(this.realmButtonRemoveProvince);
+            this.groupBox4.Controls.Add(this.realmListBoxProvinces);
+            this.groupBox4.Controls.Add(this.realmButtonAddProvince);
+            this.groupBox4.Controls.Add(this.selectedRealmProvincesCombo);
+            this.groupBox4.Location = new System.Drawing.Point(61, 360);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(442, 343);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Provinces";
             // 
-            // menuItemAddRealmFile
+            // selectedRealmProvincesCombo
             // 
-            this.menuItemAddRealmFile.Name = "menuItemAddRealmFile";
-            this.menuItemAddRealmFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.menuItemAddRealmFile.Size = new System.Drawing.Size(167, 22);
-            this.menuItemAddRealmFile.Text = "Add File...";
+            this.selectedRealmProvincesCombo.FormattingEnabled = true;
+            this.selectedRealmProvincesCombo.Location = new System.Drawing.Point(7, 37);
+            this.selectedRealmProvincesCombo.Name = "selectedRealmProvincesCombo";
+            this.selectedRealmProvincesCombo.Size = new System.Drawing.Size(269, 33);
+            this.selectedRealmProvincesCombo.TabIndex = 0;
+            // 
+            // realmButtonAddProvince
+            // 
+            this.realmButtonAddProvince.Location = new System.Drawing.Point(282, 31);
+            this.realmButtonAddProvince.Name = "realmButtonAddProvince";
+            this.realmButtonAddProvince.Size = new System.Drawing.Size(153, 43);
+            this.realmButtonAddProvince.TabIndex = 1;
+            this.realmButtonAddProvince.Text = "Add";
+            this.realmButtonAddProvince.UseVisualStyleBackColor = true;
+            // 
+            // realmListBoxProvinces
+            // 
+            this.realmListBoxProvinces.FormattingEnabled = true;
+            this.realmListBoxProvinces.ItemHeight = 25;
+            this.realmListBoxProvinces.Location = new System.Drawing.Point(7, 80);
+            this.realmListBoxProvinces.Name = "realmListBoxProvinces";
+            this.realmListBoxProvinces.Size = new System.Drawing.Size(428, 204);
+            this.realmListBoxProvinces.TabIndex = 2;
+            // 
+            // realmButtonRemoveProvince
+            // 
+            this.realmButtonRemoveProvince.Location = new System.Drawing.Point(7, 290);
+            this.realmButtonRemoveProvince.Name = "realmButtonRemoveProvince";
+            this.realmButtonRemoveProvince.Size = new System.Drawing.Size(428, 46);
+            this.realmButtonRemoveProvince.TabIndex = 3;
+            this.realmButtonRemoveProvince.Text = "Remove Selected";
+            this.realmButtonRemoveProvince.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1002, 548);
+            this.ClientSize = new System.Drawing.Size(2004, 1054);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Whimsical Editor";
@@ -557,9 +623,10 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.contextMenuRealmTree.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.contextMenuRealmRoot.ResumeLayout(false);
-            this.contextMenuRealmTree.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -615,6 +682,11 @@
         private System.Windows.Forms.ToolStripMenuItem contextRealmRootNew;
         private System.Windows.Forms.ContextMenuStrip contextMenuRealmTree;
         private System.Windows.Forms.ToolStripMenuItem menuItemAddRealmFile;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button realmButtonRemoveProvince;
+        private System.Windows.Forms.ListBox realmListBoxProvinces;
+        private System.Windows.Forms.Button realmButtonAddProvince;
+        private System.Windows.Forms.ComboBox selectedRealmProvincesCombo;
     }
 }
 
