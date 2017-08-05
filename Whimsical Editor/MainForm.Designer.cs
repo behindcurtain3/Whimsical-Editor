@@ -80,7 +80,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.selectedRealmProvincesCombo = new System.Windows.Forms.ComboBox();
             this.realmButtonAddProvince = new System.Windows.Forms.Button();
-            this.realmListBoxProvinces = new System.Windows.Forms.ListBox();
+            this.selectedRealmProvincesListBox = new System.Windows.Forms.ListBox();
             this.realmButtonRemoveProvince = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -551,7 +551,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.realmButtonRemoveProvince);
-            this.groupBox4.Controls.Add(this.realmListBoxProvinces);
+            this.groupBox4.Controls.Add(this.selectedRealmProvincesListBox);
             this.groupBox4.Controls.Add(this.realmButtonAddProvince);
             this.groupBox4.Controls.Add(this.selectedRealmProvincesCombo);
             this.groupBox4.Location = new System.Drawing.Point(61, 360);
@@ -566,7 +566,7 @@
             // selectedRealmProvincesCombo
             // 
             this.selectedRealmProvincesCombo.FormattingEnabled = true;
-            this.selectedRealmProvincesCombo.Location = new System.Drawing.Point(7, 37);
+            this.selectedRealmProvincesCombo.Location = new System.Drawing.Point(7, 31);
             this.selectedRealmProvincesCombo.Name = "selectedRealmProvincesCombo";
             this.selectedRealmProvincesCombo.Size = new System.Drawing.Size(269, 33);
             this.selectedRealmProvincesCombo.TabIndex = 0;
@@ -579,15 +579,16 @@
             this.realmButtonAddProvince.TabIndex = 1;
             this.realmButtonAddProvince.Text = "Add";
             this.realmButtonAddProvince.UseVisualStyleBackColor = true;
+            this.realmButtonAddProvince.Click += new System.EventHandler(this.realmButtonAddProvince_Click);
             // 
-            // realmListBoxProvinces
+            // selectedRealmProvincesListBox
             // 
-            this.realmListBoxProvinces.FormattingEnabled = true;
-            this.realmListBoxProvinces.ItemHeight = 25;
-            this.realmListBoxProvinces.Location = new System.Drawing.Point(7, 80);
-            this.realmListBoxProvinces.Name = "realmListBoxProvinces";
-            this.realmListBoxProvinces.Size = new System.Drawing.Size(428, 204);
-            this.realmListBoxProvinces.TabIndex = 2;
+            this.selectedRealmProvincesListBox.FormattingEnabled = true;
+            this.selectedRealmProvincesListBox.ItemHeight = 25;
+            this.selectedRealmProvincesListBox.Location = new System.Drawing.Point(7, 80);
+            this.selectedRealmProvincesListBox.Name = "selectedRealmProvincesListBox";
+            this.selectedRealmProvincesListBox.Size = new System.Drawing.Size(428, 204);
+            this.selectedRealmProvincesListBox.TabIndex = 2;
             // 
             // realmButtonRemoveProvince
             // 
@@ -597,6 +598,7 @@
             this.realmButtonRemoveProvince.TabIndex = 3;
             this.realmButtonRemoveProvince.Text = "Remove Selected";
             this.realmButtonRemoveProvince.UseVisualStyleBackColor = true;
+            this.realmButtonRemoveProvince.Click += new System.EventHandler(this.realmButtonRemoveProvince_Click);
             // 
             // MainForm
             // 
@@ -684,7 +686,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemAddRealmFile;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button realmButtonRemoveProvince;
-        private System.Windows.Forms.ListBox realmListBoxProvinces;
+        private System.Windows.Forms.ListBox selectedRealmProvincesListBox;
         private System.Windows.Forms.Button realmButtonAddProvince;
         private System.Windows.Forms.ComboBox selectedRealmProvincesCombo;
     }

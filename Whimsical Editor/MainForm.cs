@@ -244,19 +244,32 @@ namespace Whimsical_Editor
                 selectedRealmB.DataBindings.Clear();
                 selectedRealmB.DataBindings.Add("Text", SelectedRealm, "B");
 
-                List<Province> provinces = new List<Province>();
-                foreach (ProvinceJsonFile file in CurrentMod.Data.ProvinceFiles)
-                {
-                    provinces.AddRange(file.Provinces.Where(x => !SelectedRealm.Provinces.Contains(x.ID)));
-                }
-                provinces = provinces.OrderBy(x => x.ID).ToList();
-                selectedRealmProvincesCombo.DataSource = provinces;
-                selectedRealmProvincesCombo.DisplayMember = "Name";
-                selectedRealmProvincesCombo.ValueMember = "ID";
-
                 SelectedRealm.PropertyChanged += SelectedRealm_PropertyChanged;
+
+                PopulateRealmProvincesSelector();
+                PopulateRealmProvincesList();
             }
 
+        }
+
+        private void PopulateRealmProvincesSelector()
+        {
+            List<Province> provinces = new List<Province>();
+            foreach (ProvinceJsonFile file in CurrentMod.Data.ProvinceFiles)
+            {
+                provinces.AddRange(file.Provinces.Where(x => !SelectedRealm.Provinces.Contains(x.ID)));
+            }
+            provinces = provinces.OrderBy(x => x.ID).ToList();
+            selectedRealmProvincesCombo.DataSource = null;
+            selectedRealmProvincesCombo.DataSource = provinces;
+            selectedRealmProvincesCombo.DisplayMember = "Name";
+            selectedRealmProvincesCombo.ValueMember = "ID";                        
+        }
+
+        private void PopulateRealmProvincesList()
+        {
+            selectedRealmProvincesListBox.DataSource = null;
+            selectedRealmProvincesListBox.DataSource = SelectedRealm.Provinces;
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -320,6 +333,32 @@ namespace Whimsical_Editor
             }
         }
 
+        private void realmButtonAddProvince_Click(object sender, EventArgs e)
+        {
+            if (selectedRealmProvincesCombo.Items.Count < 1)
+                return;
+
+            Province p = (Province)selectedRealmProvincesCombo.SelectedItem;
+
+            SelectedRealm.Provinces.Add(p.ID);
+
+            PopulateRealmProvincesSelector();
+            PopulateRealmProvincesList();
+        }
+
+        private void realmButtonRemoveProvince_Click(object sender, EventArgs e)
+        {
+            if (selectedRealmProvincesListBox.SelectedItem == null)
+                return;
+
+            int id = (int)selectedRealmProvincesListBox.SelectedItem;
+
+            SelectedRealm.Provinces.Remove(id);
+
+            PopulateRealmProvincesSelector();
+            PopulateRealmProvincesList();
+        }
+
         #endregion
 
         #region Data change events
@@ -339,5 +378,6 @@ namespace Whimsical_Editor
         }
 
         #endregion
+
     }
 }
