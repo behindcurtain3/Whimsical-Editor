@@ -260,16 +260,17 @@ namespace Whimsical_Editor
                 provinces.AddRange(file.Provinces.Where(x => !SelectedRealm.Provinces.Contains(x.ID)));
             }
             provinces = provinces.OrderBy(x => x.ID).ToList();
-            selectedRealmProvincesCombo.DataSource = null;
-            selectedRealmProvincesCombo.DataSource = provinces;
-            selectedRealmProvincesCombo.DisplayMember = "Name";
-            selectedRealmProvincesCombo.ValueMember = "ID";                        
+            selectedRealmAllProvincesList.DataSource = null;
+            selectedRealmAllProvincesList.DataSource = provinces;
+            selectedRealmAllProvincesList.DisplayMember = "Display";
+            selectedRealmAllProvincesList.ValueMember = "ID";                        
         }
 
         private void PopulateRealmProvincesList()
         {
             selectedRealmProvincesListBox.DataSource = null;
             selectedRealmProvincesListBox.DataSource = SelectedRealm.Provinces;
+            selectedRealmProvincesListBox.DisplayMember = "Tag";
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -335,10 +336,10 @@ namespace Whimsical_Editor
 
         private void realmButtonAddProvince_Click(object sender, EventArgs e)
         {
-            if (selectedRealmProvincesCombo.Items.Count < 1)
+            if (selectedRealmAllProvincesList.Items.Count < 1)
                 return;
 
-            Province p = (Province)selectedRealmProvincesCombo.SelectedItem;
+            Province p = (Province)selectedRealmAllProvincesList.SelectedItem;
 
             SelectedRealm.Provinces.Add(p.ID);
 

@@ -37,6 +37,9 @@ namespace Whimsical_Editor.Data
         [JsonIgnore]
         public TreeNode Node { get; set; }
 
+        [JsonIgnore]
+        public string Display { get { return ToString(); } }
+
         public Province()
         {
             Adjacencies = new List<int>();
